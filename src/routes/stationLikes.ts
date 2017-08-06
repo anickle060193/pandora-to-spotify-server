@@ -8,19 +8,25 @@ const stationsLikes = Router();
 stationsLikes.get( '/:stationId', async ( request, response, next ) =>
 {
     let stationId = request.params.stationId;
-    console.log( 'Station Likes: ' + stationId );
+    console.log( `Station Likes: ${stationId}` );
 
     try
     {
         let nextStartIndex = 0;
+        let lastNextStartIndex = -1;
         let likes = [ ];
-        while( nextStartIndex !== -1 )
+        do
         {
-            console.log( 'Station Likes - Next Start Index: ' + nextStartIndex );
+            console.log( `Station Likes - Station: ${stationId} - Next Start Index: ${nextStartIndex}` );
             let result = await getStationLikes( stationId, nextStartIndex );
             likes.push( ...result.likes );
+            lastNextStartIndex = nextStartIndex;
             nextStartIndex = result.nextStartIndex;
         }
+        while( nextStartIndex
+            && nextStartIndex !== -1
+            && nextStartIndex !== lastNextStartIndex );
+
         return response.status( 200 ).send( likes );
     }
     catch( error )
