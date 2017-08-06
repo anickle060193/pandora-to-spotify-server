@@ -21,22 +21,19 @@ if( app.get( 'env' ) === 'development' )
 {
     app.use( ( error: Error, request: express.Request, response: express.Response, next: express.NextFunction ) =>
     {
-        response.status( error[ 'status' ] || 500 );
-        response.render( 'error', {
+        return response.status( error[ 'status' ] || 500 ).json( {
             message: error.message,
-            error
+            error: error
         } );
     } );
 }
 
 app.use( ( error: Error, request: express.Request, response: express.Response, next: express.NextFunction ) =>
 {
-    response.status( error[ 'status' ] || 500 );
-    response.render( 'error', {
+    return response.status( error[ 'status' ] || 500 ).json( {
         message: error.message,
         error: { }
     } );
-    return null;
 } );
 
 export default app;
