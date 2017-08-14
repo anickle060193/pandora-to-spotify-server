@@ -27,7 +27,7 @@ stationsLikes.get( '/:stationId', async ( request, response, next ) =>
             && nextStartIndex !== -1
             && nextStartIndex !== lastNextStartIndex );
 
-        return response.status( 200 ).send( likes );
+        return response.status( 200 ).type( 'json' ).json( likes );
     }
     catch( error )
     {

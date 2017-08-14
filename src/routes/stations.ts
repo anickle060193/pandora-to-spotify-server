@@ -31,7 +31,7 @@ stations.get( '/:username', async ( request, response, next ) =>
             };
         } ).get();
 
-        return response.status( 200 ).json( stationsList );
+        return response.status( 200 ).type( 'json' ).json( stationsList );
     }
     catch( error )
     {
