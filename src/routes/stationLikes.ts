@@ -27,13 +27,11 @@ stationsLikes.get( '/:stationId', async ( request, response, next ) =>
             && nextStartIndex !== -1
             && nextStartIndex !== lastNextStartIndex );
 
-        return response.status( 200 ).type( 'json' ).json( likes );
+        return response.status( 200 ).json( likes );
     }
     catch( error )
     {
-        let statusCode = error && error.statusCode || 500;
-        let message = error && error.message || 'An error occured.';
-        return response.status( statusCode ).send( message );
+        return next( error );
     }
 } );
 
